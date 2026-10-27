@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Thought Ecology</title>
+<meta name="description" content="The three organisms you grew at Thought Ecology, and the lab of every specimen.">
+<meta name="theme-color" content="#F3F1EA">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;700&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="top">
+  <a class="mark" href="./" data-nav="specimen">Thought Ecology</a>
+  <nav class="tabs" aria-label="Sections">
+    <a href="./" data-nav="specimen" class="tab">Yours</a>
+    <a href="#lab" data-nav="lab" class="tab">Lab</a>
+  </nav>
+</header>
+
+<main>
+  <!-- One visitor: their three organisms, newest stage first -->
+  <section id="specimen" class="view" aria-live="polite">
+    <p class="record mono" id="record"></p>
+
+    <div class="stage">
+      <button class="step prev" id="prev" aria-label="Previous organism">‹</button>
+      <figure class="plate" id="plate">
+        <img id="organism-img" alt="">
+        <span class="tick tl"></span><span class="tick tr"></span><span class="tick bl"></span><span class="tick br"></span>
+        <figcaption class="mono" id="fig"></figcaption>
+      </figure>
+      <button class="step next" id="next" aria-label="Next organism">›</button>
+    </div>
+
+    <div class="dots" id="dots" role="tablist" aria-label="Organisms"></div>
+
+    <h1 class="latin" id="latin"></h1>
+    <p class="common mono" id="common"></p>
+    <p class="intro" id="intro"></p>
+
+    <dl class="field" id="field"></dl>
+
+    <article class="meta-card">
+      <p class="meta-kicker mono">Metacognition</p>
+      <h2 class="mono" id="stage-title"></h2>
+      <p class="question" id="question"></p>
+      <p class="meta-body" id="meta-body"></p>
+    </article>
+  </section>
+
+  <!-- Every visitor: a row of three petri dishes per visit -->
+  <section id="lab" class="view" hidden>
+    <h1 class="lab-title">Lab</h1>
+    <p class="lab-sub">Every specimen grown at Thought Ecology, newest first.</p>
+    <div class="lab-head mono" aria-hidden="true">
+      <span>Grown</span><span>01 Slime</span><span>02 Light</span><span>03 Plant</span>
+    </div>
+    <ol class="lab-list" id="lab-list"></ol>
+  </section>
+</main>
+
+<footer class="foot">
+  <p class="mono foot-label">Thought Ecology · Atley Liu</p>
+  <ul class="links">
+    <li><a href="https://www.linkedin.com/in/ziyu-liu-a4030b219/" target="_blank" rel="noopener" aria-label="LinkedIn">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="3"/><path d="M7.5 10.5v6M7.5 7.5v.01M11.5 16.5v-6M11.5 13c0-1.6 1.1-2.6 2.5-2.6s2.5 1 2.5 2.6v3.5"/></svg>
+    </a></li>
+    <li><a href="mailto:atleyliu@gmail.com" aria-label="Email">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="5" width="19" height="14" rx="2"/><path d="M3 6.5l9 6.5 9-6.5"/></svg>
+    </a></li>
+    <li><a href="https://atleys-portfolio-site.webflow.io/" target="_blank" rel="noopener" aria-label="Website">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><path d="M2.5 12h19M12 2.5c2.6 2.8 3.8 6 3.8 9.5s-1.2 6.7-3.8 9.5c-2.6-2.8-3.8-6-3.8-9.5s1.2-6.7 3.8-9.5z"/></svg>
+    </a></li>
+  </ul>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>

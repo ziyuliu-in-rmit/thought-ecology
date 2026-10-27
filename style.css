@@ -259,4 +259,17 @@ button { font: inherit; color: inherit; }
 .links a:active { background: var(--olive-soft); }
 .links svg { width: 19px; height: 19px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
 
-@media (prefers-reduced-motion: reduce) { .plate img { transition: none; } }
+/* waiting for this visitor's upload */
+#developing { display: none; text-align: center; padding-top: 48px; }
+body.developing #developing { display: block; }
+body.developing #specimen, body.developing #lab { display: none; }
+.developing-dish {
+  width: 140px;
+  margin: 0 auto 24px;
+  background-image: radial-gradient(circle at 50% 50%, rgba(235, 232, 219, .5) 0 2px, transparent 3px);
+  background-size: 22px 22px;
+  animation: develop 2.4s ease-in-out infinite alternate;
+}
+@keyframes develop { from { opacity: .35; } to { opacity: 1; } }
+
+@media (prefers-reduced-motion: reduce) { .plate img { transition: none; } .developing-dish { animation: none; } }

@@ -182,11 +182,31 @@ $('plate').addEventListener('touchend', e => {
   x0 = null;
 });
 
-fetch('specimens/index.json', { cache: 'no-store' })
-  .then(r => r.ok ? r.json() : [])
-  .catch(() => [])
-  .then(data => {
-    index = Array.isArray(data) ? data : [];
-    renderSpecimen();
-    route();
-  });
+// A visitor scans the QR while their specimen is still uploading (a minute or so on GitHub
+// Pages), so a missing id shows a "developing" note and checks again until it arrives.
+const fresh = url => fetch(url + '?t=' + Date.now(), { cache: 'no-store' })
+  .then(r => r.ok ? r.json() : null).catch(() => null);
+
+async function load() {
+  const data = await fresh('specimens/index.json');
+  index = Array.isArray(data) ? data : [];
+  const id = params.get('s');
+  if (id && !index.some(m => m.id === id)) {
+    const meta = await fresh('specimens/' + encodeURIComponent(id) + '/meta.json');
+    if (meta) index.unshift(meta);
+  }
+  return !id || index.some(m => m.id === id);
+}
+
+async function start(tries = 0) {
+  const ready = await load();
+  const waiting = !ready && tries < 40;
+  document.body.classList.toggle('developing', waiting);
+  if (waiting) {
+    setTimeout(() => start(tries + 1), 8000);
+    return;
+  }
+  renderSpecimen();
+  route();
+}
+start();

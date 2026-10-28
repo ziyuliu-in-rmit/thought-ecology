@@ -1,5 +1,6 @@
 // Thought Ecology take-home site.
-// ?s=<specimen id> shows that visitor's three organisms (from the QR code on the final screen);
+// ?s=<specimen id> shows that visitor's three organisms (from the QR code on the final screen;
+// ?s=latest, from the NFC tag, means whoever is at the installation now);
 // #lab lists every specimen. Data: specimens/index.json, written by web_export in TouchDesigner.
 
 const ORGANISMS = [
@@ -198,7 +199,22 @@ async function load() {
   return !id || index.some(m => m.id === id);
 }
 
+// The NFC tag on the plinth is fixed, so it opens ?s=latest. TouchDesigner pushes
+// specimens/latest.json when a visit's phase 2 starts, well before the final screen, so it
+// already names this visitor; the page swaps in their id so a bookmark keeps their specimen.
+async function resolveLatest() {
+  if (params.get('s') !== 'latest') return;
+  const latest = await fresh('specimens/latest.json');
+  if (latest && latest.id) {
+    params.set('s', latest.id);
+    history.replaceState(null, '', '?s=' + encodeURIComponent(latest.id) + location.hash);
+  } else {
+    params.delete('s');           // no visit recorded yet: fall back to the newest specimen
+  }
+}
+
 async function start(tries = 0) {
+  if (!tries) await resolveLatest();
   const ready = await load();
   const waiting = !ready && tries < 40;
   document.body.classList.toggle('developing', waiting);
